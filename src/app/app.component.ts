@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ServerService } from './service/server.service';
 import { AppState } from './interface/app-state';
 import { CustomResponse } from './interface/custom-response';
@@ -11,7 +11,9 @@ import { Server } from './interface/server';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
+  // this is the reason why observables was used in this project instead of normal variables, by default the strategy is on change meaning whenever anything changing in the component it will reload the UI, but by using the on push strategy we can limit it to only input, event, and observable changes which will improve the performance of the application.
 })
 export class AppComponent implements OnInit{
   appState$: Observable<AppState<CustomResponse>>; // the variable that will keep track of the app's state, and data
